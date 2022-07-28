@@ -3,6 +3,9 @@ package com.seda.artbookk.di
 import android.content.Context
 import androidx.room.Room
 import com.seda.artbookk.api.RetrofitApi
+import com.seda.artbookk.repo.ArtRepository
+import com.seda.artbookk.repo.ArtRepositoryInterface
+import com.seda.artbookk.roomdb.ArtDao
 import com.seda.artbookk.roomdb.ArtDatabase
 import com.seda.artbookk.unit.Util
 import dagger.Module
@@ -29,6 +32,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideBaseUrl() = Util.BASE_URL
+
+    @Singleton
+    @Provides
+    fun injectNormalRepo(dao : ArtDao, api: RetrofitApi) = ArtRepository(dao,api) as ArtRepositoryInterface
 
     @Provides
     @Singleton
