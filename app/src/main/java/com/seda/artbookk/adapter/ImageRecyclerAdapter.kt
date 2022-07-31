@@ -1,7 +1,9 @@
 package com.seda.artbookk.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -30,11 +32,11 @@ private var onItemClickListener : ((String)->Unit)? = null
         }
     }
 
-    @JvmName("setOnItemClickListener1")
+
     fun setOnItemClickListener(listener : (String) -> Unit) {
         onItemClickListener = listener
     }
-    val differ = AsyncListDiffer(this, differCallback)
+    private val differ = AsyncListDiffer(this, differCallback)
     var images : List<String>
         get() = differ.currentList
         set(value) = differ.submitList(value)
@@ -50,7 +52,9 @@ private var onItemClickListener : ((String)->Unit)? = null
             Glide.with(holder.itemView).load(images).into(singleArtImageView)
         }
         holder.itemView.setOnClickListener {
+
             onItemClickListener?.let { it1 -> it1(images) }
+
         }
     }
 

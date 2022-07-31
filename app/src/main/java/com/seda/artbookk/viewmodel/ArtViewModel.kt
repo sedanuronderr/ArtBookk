@@ -1,6 +1,7 @@
 package com.seda.artbookk.viewmodel
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,9 +28,13 @@ class ArtViewModel @Inject constructor(private val repositoryInterface: ArtRepos
     val selectedImageUrl: LiveData<String>
     get() = selectedImage
 
+    private var insertArtMsg = MutableLiveData<Resource<Art>>()
+    val insertArtMessage : LiveData<Resource<Art>>
+        get() = insertArtMsg
 
     fun setSelectedImage(url:String){
-        selectedImage.postValue(url)
+ selectedImage.value = url
+        selectedImageUrl.value?.let { Log.e("ss", it) }
     }
 
     fun deleteArt(art: Art)=viewModelScope.launch{
@@ -41,20 +46,22 @@ class ArtViewModel @Inject constructor(private val repositoryInterface: ArtRepos
 
     fun makeArt(name : String, artistName : String, year : String) {
         if (name.isEmpty() || artistName.isEmpty() || year.isEmpty() ) {
-           // insertArtMsg.postValue(Resource.error("Enter name, artist, year", null))
+            insertArtMsg.postValue(Resource.error("Enter name, artist, year", null))
+            Log.e("hata","name yıl year")
             return
         }
         val yearInt = try {
             year.toInt()
         } catch (e: Exception) {
-         //   insertArtMsg.postValue(Resource.error("Year should be number",null))
+           insertArtMsg.postValue(Resource.error("Year should be number",null))
             return
         }
 
         val art = Art(name, artistName, yearInt,selectedImage.value?: "")
         insertArt(art)
         setSelectedImage("")
-      //  insertArtMsg.postValue(Resource.success(art))
+        Log.e("başarı","basarı")
+        insertArtMsg.postValue(Resource.success(art))
     }
 
     fun searchForImage(searchString: String) {

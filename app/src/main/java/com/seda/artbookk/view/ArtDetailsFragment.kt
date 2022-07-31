@@ -36,8 +36,8 @@ class ArtDetailsFragment : Fragment(R.layout.fragment_art_details){
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         subscribeToObservers()
+
         binding.artImageView.setOnClickListener {
             findNavController().navigate(ArtDetailsFragmentDirections.actionArtDetailsFragmentToImageApi())
         }
@@ -51,16 +51,24 @@ class ArtDetailsFragment : Fragment(R.layout.fragment_art_details){
 
 
         binding.saveButton.setOnClickListener {
+            Log.e("basdı","basdı")
             viewModel.makeArt(binding.nameText.text.toString(),binding.artistText.text.toString(),binding.yearText.text.toString())
+
         }
+
 
     }
     private fun subscribeToObservers(){
-        viewModel.selectedImageUrl.observe(viewLifecycleOwner, Observer {url->
-            Log.e("image",url)
-            GlideLoader(requireContext()).loadUserPicture(url,binding.artImageView)
 
-        })
+        viewModel.selectedImageUrl.observe(viewLifecycleOwner){
+            Log.e("image", it)
+
+                GlideLoader(requireContext()).loadUserPicture(it,binding.artImageView)
+
+
+
+        }
+
     }
 
 }

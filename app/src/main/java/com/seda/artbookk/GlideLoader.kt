@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.annotation.GlideModule
+import dagger.hilt.android.AndroidEntryPoint
 
 import java.io.IOException
 import java.net.URI

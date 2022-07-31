@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.seda.artbookk.R
@@ -51,11 +52,14 @@ class ImageApi : Fragment(R.layout.fragment_image_api){
         prepareRecycler()
         subscribeToObservers()
 
-artAdapter.setOnItemClickListener {
-    viewModel.setSelectedImage(it)
-    Log.e("cevap", it)
+        artAdapter.setOnItemClickListener {
+            findNavController().popBackStack()
+            Log.e("cevap",it)
+            viewModel.setSelectedImage(it)
 
-    }
+
+
+        }
 
 
         var job: Job? = null
