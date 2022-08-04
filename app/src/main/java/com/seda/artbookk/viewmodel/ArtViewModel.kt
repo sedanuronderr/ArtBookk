@@ -48,7 +48,7 @@ class ArtViewModel @Inject constructor(private val repositoryInterface: ArtRepos
         if (name.isEmpty() || artistName.isEmpty() || year.isEmpty() ) {
             insertArtMsg.postValue(Resource.error("Enter name, artist, year", null))
             Log.e("hata","name yıl year")
-            return
+return
         }
         val yearInt = try {
             year.toInt()
