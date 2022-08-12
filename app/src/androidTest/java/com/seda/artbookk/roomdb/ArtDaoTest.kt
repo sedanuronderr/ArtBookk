@@ -13,7 +13,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@SmallTest //Unit test  Mediumtest = integrationtest largetest =UI test
+@SmallTest//Unit test  Mediumtest = integrationtest largetest =UI test
 @ExperimentalCoroutinesApi
 class ArtDaoTest {
     @get:Rule
